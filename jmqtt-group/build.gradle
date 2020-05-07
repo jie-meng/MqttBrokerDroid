@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':jmqtt-common')
+    implementation project(path: ':jmqtt-remoting')
+
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'com.alibaba:fastjson:1.2.68'
+    implementation 'io.netty:netty-all:4.1.49.Final'
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

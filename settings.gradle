@@ -1,0 +1,8 @@
+rootProject.name='MqttBrokerDroid'
+include ':app'
+include ':jmqtt-broker'
+include ':jmqtt-remoting'
+include ':jmqtt-common'
+include ':jmqtt-store'
+include ':jmqtt-group'
+include ':mqttbroker'
