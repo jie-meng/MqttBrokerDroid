@@ -2,7 +2,6 @@ package com.jmengxy.mqttbroker
 
 import ch.qos.logback.classic.LoggerContext
 import ch.qos.logback.classic.joran.JoranConfigurator
-import com.jmengxy.go.Go
 import org.apache.commons.cli.CommandLineParser
 import org.apache.commons.cli.DefaultParser
 import org.apache.commons.cli.Option
@@ -27,7 +26,6 @@ class MqttBroker {
     @Throws(Exception::class)
     fun start(args: Array<String> = emptyArray()) {
         stop()
-        Go.go()
 
         val options = buildOptions()
         val parser: CommandLineParser = DefaultParser()
