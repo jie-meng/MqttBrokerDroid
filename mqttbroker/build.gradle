@@ -27,8 +27,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':jmqtt-broker')
-    implementation project(':jmqtt-common')
+    implementation project(path: ':jmqtt-broker')
+    implementation project(path: ':jmqtt-common')
     implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'commons-cli:commons-cli:1.4'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
