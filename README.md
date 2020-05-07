@@ -47,3 +47,31 @@ MqttBrokerDroid is [JMqtt](https://github.com/Cicizz/jmqtt) on Android.
             <version>1.1.0</version>
         </dependency>
         ```
+
+## How to start broker
+
+```
+package com.jmengxy.test
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.jmengxy.mqttbroker.MqttBroker
+
+class MainActivity : AppCompatActivity() {
+
+    private val mqttBroker = MqttBroker()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        mqttBroker.start()
+    }
+
+    override fun onDestroy() {
+        mqttBroker.stop()
+        super.onDestroy()
+    }
+}
+
+```
