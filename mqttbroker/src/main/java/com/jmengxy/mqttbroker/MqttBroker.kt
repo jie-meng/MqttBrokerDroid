@@ -24,7 +24,8 @@ class MqttBroker {
     private var brokerController: BrokerController? = null
 
     @Throws(Exception::class)
-    fun start(args: Array<String> = emptyArray()) {
+    fun start(properties: Properties = Properties()) {
+        val args = emptyArray<String>()
         stop()
 
         val options = buildOptions()
@@ -36,6 +37,9 @@ class MqttBroker {
         val nettyConfig = NettyConfig()
         val storeConfig = StoreConfig()
         val clusterConfig = ClusterConfig()
+
+        updateConfig(properties, nettyConfig)
+
         if (commandLine != null) {
             jmqttHome = commandLine.getOptionValue("h")
             jmqttConfigPath = commandLine.getOptionValue("c")
@@ -61,9 +65,7 @@ class MqttBroker {
     }
 
     fun stop() {
-        brokerController?.let {
-            it?.shutdown()
-        }
+        brokerController?.shutdown()
         brokerController = null
     }
 
@@ -105,12 +107,32 @@ class MqttBroker {
             println("Handle jmqttConfig IO exception,cause = $e")
         } finally {
             try {
-                if (Objects.nonNull(bufferedReader)) {
-                    bufferedReader!!.close()
-                }
+                bufferedReader?.close()
             } catch (e: IOException) {
                 println("Handle jmqttConfig IO exception,cause = $e")
             }
+        }
+    }
+
+    private fun updateConfig(properties: Properties, nettyConfig: NettyConfig) {
+        val tcpPort = properties.getProperty("tcp_port")
+        tcpPort?.let {
+            nettyConfig.tcpPort = tcpPort.toInt()
+        }
+
+        val sslPort = properties.getProperty("ssl_port")
+        sslPort?.let {
+            nettyConfig.sslTcpPort = sslPort.toInt()
+        }
+
+        val webSocketPort = properties.getProperty("websocket_port")
+        webSocketPort?.let {
+            nettyConfig.websocketPort = webSocketPort.toInt()
+        }
+
+        val tcpKeepLive = properties.getProperty("tcp_keeplive")
+        tcpKeepLive?.let {
+            nettyConfig.isTcpKeepAlive = tcpKeepLive.toBoolean()
         }
     }
 }

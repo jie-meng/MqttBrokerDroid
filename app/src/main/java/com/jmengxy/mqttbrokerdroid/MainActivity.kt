@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.jmengxy.mqttbroker.MqttBroker
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         try {
-            mqttBroker.start()
+            val properties = Properties()
+            properties.setProperty("tcp_port", "1884")
+            mqttBroker.start(properties)
             text.text = "MqttBroker started"
         } catch (e: Exception) {
             e.printStackTrace()
